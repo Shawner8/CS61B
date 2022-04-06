@@ -1,5 +1,3 @@
-import org.w3c.dom.Node;
-
 /** A simple implementation of Deque. */
 public class LinkedListDeque<T> {
 
