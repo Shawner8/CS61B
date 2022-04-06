@@ -31,7 +31,7 @@ public class LinkedListDeque<T> {
         TNode<T> node = other.sentinel;
         while (node.next != other.sentinel) {
             node = node.next;
-            this.addFirst(node.item);
+            addLast(node.item);
         }
     }
 
