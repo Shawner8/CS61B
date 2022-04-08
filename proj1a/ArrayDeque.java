@@ -12,13 +12,17 @@ public class ArrayDeque<T> {
         frontPointer = 0;
     }
 
+    /** Revise index. */
+    private int revise(int index) {
+        return (frontPointer + index + array.length) % array.length;
+    }
+
     /** Resize the Array to the given capacity. */
     private void resize(int capacity) {
         T[] tmp = (T[]) new Object[capacity];
-        System.arraycopy(array, frontPointer % array.length,
-                tmp, 0, -frontPointer);
-        System.arraycopy(array, 0,
-                tmp, -frontPointer, frontPointer + array.length);
+        for (int i = 0; i < size; i += 1) {
+            tmp[i] = array[revise(i)];
+        }
         array = tmp;
         frontPointer = 0;
     }
@@ -29,7 +33,7 @@ public class ArrayDeque<T> {
             resize(array.length * 2);
         }
         frontPointer -= 1;
-        array[frontPointer % array.length] = item;
+        array[revise(0)] = item;
         size += 1;
     }
 
@@ -38,7 +42,7 @@ public class ArrayDeque<T> {
         if (size == array.length - 1) {
             resize(array.length * 2);
         }
-        array[(size + frontPointer) % array.length] = item;
+        array[revise(size)] = item;
         size += 1;
     }
 
@@ -57,7 +61,7 @@ public class ArrayDeque<T> {
     public void printDeque() {
         if (!isEmpty()) {
             for (int i = 0; i < size; i += 1) {
-                System.out.print(array[(i + frontPointer) % array.length] + " ");
+                System.out.print(array[revise(i)] + " ");
             }
         }
         System.out.println();
@@ -69,8 +73,8 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
-            T item = array[frontPointer % array.length];
-            array[frontPointer % array.length] = null;
+            T item = array[revise(0)];
+            array[revise(0)] = null;
             size -= 1;
             frontPointer += 1;
             if (array.length >= 16 && size / array.length < 0.25) {
@@ -86,8 +90,8 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
-            T item = array[(size - 1 + frontPointer) % array.length];
-            array[(size - 1 + frontPointer) % array.length] = null;
+            T item = array[revise(size - 1)];
+            array[revise(size - 1)] = null;
             size -= 1;
             if (array.length >= 16 && size / array.length < 0.25) {
                 resize(array.length / 2);
@@ -99,11 +103,10 @@ public class ArrayDeque<T> {
     /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
      *  If no such item exists, returns null. */
     public T get(int index) {
-        int revisedIndex = (index + frontPointer) % array.length;
-        if (revisedIndex < 0 || revisedIndex >= size){
+        if (revise(index) < 0 || revise(index) >= size) {
             return null;
         } else {
-            return array[revisedIndex];
+            return array[revise(index)];
         }
     }
 }

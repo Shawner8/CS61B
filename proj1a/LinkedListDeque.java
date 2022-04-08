@@ -72,7 +72,7 @@ public class LinkedListDeque<T> {
             System.out.println();
         } else {
             TNode<T> p = sentinel;
-            while(p.next != sentinel) {
+            while (p.next != sentinel) {
                 p = p.next;
                 System.out.print(p.item + " ");
             }
@@ -111,7 +111,7 @@ public class LinkedListDeque<T> {
     /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
      *  If no such item exists, returns null. */
     public T get(int index) {
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= size) {
             return null;
         } else {
             TNode<T> p = sentinel.next;
