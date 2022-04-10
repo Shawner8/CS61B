@@ -9,26 +9,39 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         array = (T[]) new Object[8];
         size = 0;
-        frontPointer = 0;
+        frontPointer = 0; //invariance: vary between 0 and array.length - 1
+    }
+
+    /** Move forward the frontPointer. */
+    private void moveForward() {
+        frontPointer = (frontPointer + 1) % array.length;
+    }
+
+    /** Move backward the frontPointer. */
+    private void moveBackward() {
+        frontPointer = (frontPointer - 1 + array.length) % array.length;
     }
 
     /** Revise index. */
     private int revise(int index) {
-        index += frontPointer;
-        while (index < 0) {
-            index += array.length;
-        }
-        return index % array.length;
+        return (frontPointer + index) % array.length;
     }
 
     /** Resize the Array to the given capacity. */
     private void resize(int capacity) {
+        /* iterative implementation without using the function System.arraycopy()
         T[] tmp = (T[]) new Object[capacity];
         for (int i = 0; i < size; i += 1) {
             tmp[i] = array[revise(i)];
         }
         array = tmp;
         frontPointer = 0;
+         */
+        T[] tmp = (T[]) new Object[capacity];
+        System.arraycopy(array, frontPointer, tmp, 0, array.length - frontPointer);
+        if (frontPointer != 0) {
+            System.arraycopy(array, 0, tmp, array.length - frontPointer, frontPointer);
+        }
     }
 
     /** Adds an item to the front of the deque. */
@@ -36,7 +49,7 @@ public class ArrayDeque<T> {
         if (size == array.length) {
             resize(array.length * 2);
         }
-        frontPointer -= 1;
+        moveBackward();
         array[revise(0)] = item;
         size += 1;
     }
@@ -80,7 +93,7 @@ public class ArrayDeque<T> {
             T item = array[revise(0)];
             array[revise(0)] = null;
             size -= 1;
-            frontPointer += 1;
+            moveForward();
             if (array.length >= 16 && size < 0.25 * array.length) {
                 resize(array.length / 2);
             }
