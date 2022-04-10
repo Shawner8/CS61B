@@ -107,7 +107,7 @@ public class ArrayDeque<T> {
     /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
      *  If no such item exists, returns null. */
     public T get(int index) {
-        if (revise(index) < 0 || revise(index) >= size) {
+        if (index < 0 || index >= size) {
             return null;
         } else {
             return array[revise(index)];
