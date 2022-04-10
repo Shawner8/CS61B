@@ -22,6 +22,11 @@ public class ArrayDeque<T> {
         frontPointer = (frontPointer - 1 + array.length) % array.length;
     }
 
+    /** Reset the frontPointer. */
+    private void reset() {
+        frontPointer = 0;
+    }
+
     /** Revise index. */
     private int revise(int index) {
         return (frontPointer + index) % array.length;
@@ -42,6 +47,8 @@ public class ArrayDeque<T> {
         if (frontPointer != 0) {
             System.arraycopy(array, 0, tmp, array.length - frontPointer, frontPointer);
         }
+        array = tmp;
+        reset();
     }
 
     /** Adds an item to the front of the deque. */
