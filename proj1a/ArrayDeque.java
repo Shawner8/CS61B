@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
 
     /** Adds an item to the front of the deque. */
     public void addFirst(T item) {
-        if (size == array.length - 1) {
+        if (size == array.length) {
             resize(array.length * 2);
         }
         frontPointer -= 1;
@@ -39,7 +39,7 @@ public class ArrayDeque<T> {
 
     /** Adds an item to the back of the deque. */
     public void addLast(T item) {
-        if (size == array.length - 1) {
+        if (size == array.length) {
             resize(array.length * 2);
         }
         array[revise(size)] = item;
@@ -77,7 +77,7 @@ public class ArrayDeque<T> {
             array[revise(0)] = null;
             size -= 1;
             frontPointer += 1;
-            if (array.length >= 16 && size / array.length < 0.25) {
+            if (array.length >= 16 && size < 0.25 * array.length) {
                 resize(array.length / 2);
             }
             return item;
@@ -93,7 +93,7 @@ public class ArrayDeque<T> {
             T item = array[revise(size - 1)];
             array[revise(size - 1)] = null;
             size -= 1;
-            if (array.length >= 16 && size / array.length < 0.25) {
+            if (array.length >= 16 && size < 0.25 * array.length) {
                 resize(array.length / 2);
             }
             return item;
