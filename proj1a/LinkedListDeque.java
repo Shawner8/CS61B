@@ -19,19 +19,19 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    /** Creates a deep copy of other. */
-    public LinkedListDeque(LinkedListDeque other) {
-        sentinel = new TNode<>();
-        sentinel.prev = sentinel;
-        sentinel.next = sentinel;
-        size = 0;
-
-        TNode<T> node = other.sentinel;
-        while (node.next != other.sentinel) {
-            node = node.next;
-            addLast(node.item);
-        }
-    }
+//    /** Creates a deep copy of other. */
+//    public LinkedListDeque(LinkedListDeque other) {
+//        sentinel = new TNode<>();
+//        sentinel.prev = sentinel;
+//        sentinel.next = sentinel;
+//        size = 0;
+//
+//        TNode<T> node = other.sentinel;
+//        while (node.next != other.sentinel) {
+//            node = node.next;
+//            addLast(node.item);
+//        }
+//    }
 
     /** Adds an item to the front of the deque. */
     public void addFirst(T item) {
