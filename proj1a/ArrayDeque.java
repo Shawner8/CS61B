@@ -43,9 +43,13 @@ public class ArrayDeque<T> {
         frontPointer = 0;
          */
         T[] tmp = (T[]) new Object[capacity];
-        System.arraycopy(array, frontPointer, tmp, 0, array.length - frontPointer);
-        if (frontPointer != 0) {
-            System.arraycopy(array, 0, tmp, array.length - frontPointer, frontPointer);
+        if (frontPointer + size <= array.length) {
+            System.arraycopy(array, frontPointer, tmp, 0, size);
+        } else {
+            System.arraycopy(array, frontPointer,
+                    tmp, 0, array.length - frontPointer);
+            System.arraycopy(array, 0,
+                    tmp, array.length - frontPointer, size - (array.length - frontPointer));
         }
         array = tmp;
         reset();
