@@ -14,7 +14,11 @@ public class ArrayDeque<T> {
 
     /** Revise index. */
     private int revise(int index) {
-        return (frontPointer + index + array.length) % array.length;
+        index += frontPointer;
+        while (index < 0) {
+            index += array.length;
+        }
+        return index % array.length;
     }
 
     /** Resize the Array to the given capacity. */
