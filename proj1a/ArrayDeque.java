@@ -9,7 +9,7 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         array = (T[]) new Object[8];
         size = 0;
-        frontPointer = 0; //invariance: vary between 0 and array.length - 1
+        frontPointer = 0; //invariant: vary between 0 and array.length - 1
     }
 
     /** Move forward the frontPointer. */
