@@ -74,6 +74,12 @@ public class IntListTest {
         assertEquals(expected, actual);
         assertNotEquals(myList, actual);
 
+        myList = IntList.of(1, 2, 3, 4);
+        expected = IntList.of(4, 3, 2, 1);
+        actual = IntList.reverse(myList);
+        assertEquals(expected, actual);
+        assertNotEquals(myList, actual);
+
         IntList expectedNull = IntList.reverse(null);
         assertEquals(expectedNull, null);
     }
