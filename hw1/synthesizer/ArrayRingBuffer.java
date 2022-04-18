@@ -74,14 +74,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
     public class ArrayRingBufferIterator implements Iterator<T> {
         private int wisPos;
-        private final int end;
 
         public ArrayRingBufferIterator() {
             wisPos = first;
-            end = last - 1;
-            if (last < 0) {
-                last += capacity;
-            }
         }
 
         @Override
@@ -89,7 +84,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             if (fillCount == 0) {
                 return false;
             } else {
-                return wisPos != end;
+                return wisPos != last;
             }
         }
 
