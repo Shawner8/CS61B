@@ -1,11 +1,12 @@
 /** A client that uses the synthesizer package to replicate a plucked guitar string sound */
 public class GuitarHeroLite {
     private static final double CONCERT_A = 440.0;
-    private static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static final String KEYBOARD = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
-    public static void main(String[] args) {/* create an array which contains 37 guitar strings. */
-        synthesizer.GuitarString[] strings = new synthesizer.GuitarString[keyboard.length()];
-        for (int i = 0; i < keyboard.length(); i += 1) {
+    public static void main(String[] args) {
+        /* create an array which contains 37 guitar strings. */
+        synthesizer.GuitarString[] strings = new synthesizer.GuitarString[KEYBOARD.length()];
+        for (int i = 0; i < KEYBOARD.length(); i += 1) {
             strings[i] = new synthesizer.GuitarString(CONCERT_A * Math.pow(2, (i - 24.0) / 12.0));
         }
 
@@ -13,7 +14,7 @@ public class GuitarHeroLite {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                int index = keyboard.indexOf(key);
+                int index = KEYBOARD.indexOf(key);
                 if (index >= 0) {
                     strings[index].pluck();
                 }
