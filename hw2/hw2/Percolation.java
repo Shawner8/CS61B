@@ -40,18 +40,18 @@ public class Percolation {
     }
 
     /** converts (ROW, COL) coordinate into 1-dim index. */
-    public int rc2Ind(int row, int col) {
+    private int rc2Ind(int row, int col) {
         return row * N + col;
     }
 
     /** converts 1-dim index into ROW. */
-    public int ind2r(int N) {
-        return N / this.N;
+    private int ind2r(int ind) {
+        return ind / N;
     }
 
     /** converts 1-dim index into COL. */
-    public int ind2c(int N) {
-        return N % this.N;
+    private int ind2c(int ind) {
+        return ind % N;
     }
 
     /** returns whether (ROW, COL) connects with the top line. */
@@ -69,7 +69,8 @@ public class Percolation {
         assert isOpen(row, col);
         if (isOpen(row + rOffset, col + cOffset)) {
             boolean top = connectWithTop(row, col) || connectWithTop(row + rOffset, col + cOffset);
-            boolean bottom = connectWithBottom(row, col) || connectWithBottom(row + rOffset, col + cOffset);
+            boolean bottom = connectWithBottom(row, col)
+                    || connectWithBottom(row + rOffset, col + cOffset);
             uf.union(rc2Ind(row, col), rc2Ind(row + rOffset, col + cOffset));
             connectWithTopArray[uf.find(rc2Ind(row, col))] = top;
             connectWithBottomArray[uf.find(rc2Ind(row, col))] = bottom;
@@ -140,5 +141,9 @@ public class Percolation {
     // does the system percolate?
     public boolean percolates() {
         return percolated;
+    }
+
+    // use for unit testing (not required)
+    public static void main(String[] args) {
     }
 }

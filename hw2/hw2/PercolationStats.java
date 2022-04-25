@@ -21,8 +21,8 @@ public class PercolationStats {
         int[] randSeq = getRandomSeq(N * N);
         int i = 0;
         while (!p.percolates()) {
-            int row = p.ind2r(randSeq[i]);
-            int col = p.ind2c(randSeq[i]);
+            int row = randSeq[i] / N;
+            int col = randSeq[i] % N;
             p.open(row, col);
             i += 1;
         }
