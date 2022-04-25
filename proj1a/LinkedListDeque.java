@@ -3,9 +3,9 @@ public class LinkedListDeque<T> {
 
     /* The basic element to construct a LinkedListDeque. */
     private static class TNode<T> {
-        public T item;
-        public TNode<T> prev;
-        public TNode<T> next;
+        private T item;
+        private TNode<T> prev;
+        private TNode<T> next;
     }
 
     private TNode<T> sentinel;
