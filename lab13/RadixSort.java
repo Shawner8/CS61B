@@ -16,8 +16,24 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        int index = Integer.MIN_VALUE;
+        String[] sorted = new String[asciis.length];
+        for (int i = 0; i < asciis.length; i += 1) {
+            sorted[i] = asciis[i];
+            index = Math.max(index, asciis[i].length());
+        }
+        for (index -= 1; index >= 0; index -= 1) {
+            sortHelperLSD(sorted, index);
+        }
+        return sorted;
+    }
+
+    private static int getChar(String s, int index) {
+        try {
+            return s.charAt(index);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**
@@ -28,7 +44,25 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        return;
+        int[] counts = new int[256];
+        for (String s : asciis) {
+            int i = getChar(s, index);
+            counts[i] += 1;
+        }
+        int[] starts = new int[256];
+        for (int i = 1; i < 256; i += 1) {
+            starts[i] = starts[i - 1] + counts[i - 1];
+        }
+
+        String[] sorted = new String[asciis.length];
+        for (String s : asciis) {
+            int i = getChar(s, index);
+            int place = starts[i];
+            sorted[place] = s;
+            starts[i] += 1;
+        }
+
+        System.arraycopy(sorted, 0, asciis, 0, asciis.length);
     }
 
     /**
@@ -44,5 +78,23 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void printStrings(String[] strings) {
+        for (String s : strings) {
+            System.out.print(s + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        String[] asciis = new String[3];
+        asciis[0] = "puppy";
+        asciis[1] = "cat";
+        asciis[2] = "dogs";
+        RadixSort.printStrings(asciis);
+        String[] sorted = RadixSort.sort(asciis);
+        RadixSort.printStrings(asciis);
+        RadixSort.printStrings(sorted);
     }
 }
