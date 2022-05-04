@@ -36,9 +36,9 @@ public class MergeSort {
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
         Queue<Queue<Item>> res = new Queue<>();
-        while (!items.isEmpty()) {
+        for (Item item : items) {
             Queue<Item> q = new Queue<>();
-            q.enqueue(items.dequeue());
+            q.enqueue(item);
             res.enqueue(q);
         }
         return res;
@@ -88,6 +88,7 @@ public class MergeSort {
         students.enqueue("Ethan");
         System.out.println(students);
         Queue<String> sortedStudents = MergeSort.mergeSort(students);
+        System.out.println(students);
         System.out.println(sortedStudents);
     }
 }
