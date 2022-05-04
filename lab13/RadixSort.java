@@ -29,9 +29,15 @@ public class RadixSort {
     }
 
     private static int getChar(String s, int index) {
+        /*
         try {
             return s.charAt(index);
         } catch (Exception e) {
+            return 0;
+        }*/
+        if (index >= 0 && index < s.length()) {
+            return s.charAt(index);
+        } else {
             return 0;
         }
     }
