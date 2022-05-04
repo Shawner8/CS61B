@@ -2,17 +2,20 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class Solver {
 
     private static class SearchNode implements Comparable<SearchNode> {
-        public WorldState worldState;
-        public int moves;
-        public SearchNode prev;
-        int priority;
+        private WorldState worldState;
+        private int moves;
+        private SearchNode prev;
+        private int priority;
 
-        public SearchNode (WorldState w, int m, SearchNode ref, int p) {
+        SearchNode(WorldState w, int m, SearchNode ref, int p) {
             worldState = w;
             moves = m;
             prev = ref;
@@ -20,7 +23,7 @@ public class Solver {
         }
 
         @Override
-        public int compareTo (SearchNode o) {
+        public int compareTo(SearchNode o) {
             return Integer.compare(priority, o.priority);
         }
     }
