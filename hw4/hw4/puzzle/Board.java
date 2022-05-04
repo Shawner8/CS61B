@@ -68,11 +68,11 @@ public class Board implements WorldState {
         return neighbors;
     }
 
-    private int xyTo1D (int i, int j) {
+    private int xyTo1D(int i, int j) {
         return i * size() + j + 1;
     }
 
-    private int hammingDist (int i, int j, int n) {
+    private int hammingDist(int i, int j, int n) {
         if (board[i][j] == n) {
             return 0;
         } else {
@@ -93,16 +93,16 @@ public class Board implements WorldState {
         return estimate;
     }
 
-    private int IndexToX (int index) {
-        return Math.floorMod(index - 1, 9) / size();
+    private int indexToX(int index) {
+        return (index - 1) / size();
     }
 
-    private int IndexToY (int index) {
-        return Math.floorMod(index - 1, 9) % size();
+    private int indexToY(int index) {
+        return (index - 1) % size();
     }
 
-    private int manhattanDist (int i, int j) {
-        return Math.abs(i - IndexToX(board[i][j])) + Math.abs(j - IndexToY(board[i][j]));
+    private int manhattanDist(int i, int j) {
+        return Math.abs(i - indexToX(board[i][j])) + Math.abs(j - indexToY(board[i][j]));
     }
 
     /** Manhattan estimate. */
@@ -110,7 +110,7 @@ public class Board implements WorldState {
         int estimate = 0;
         for (int i = 0; i < size(); i += 1) {
             for (int j = 0; j < size(); j += 1) {
-                if (i != size() - 1 || j != size() - 1) {
+                if (board[i][j] != 0) {
                     estimate += manhattanDist(i, j);
                 }
             }
@@ -129,6 +129,7 @@ public class Board implements WorldState {
     /** Returns true if this board's tile values are the same
      *  position as y's.
      */
+    @Override
     public boolean equals(Object y) {
         if (this == y) {
             return true;
@@ -153,6 +154,17 @@ public class Board implements WorldState {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = 0;
+        for (int i = 0; i < size(); i += 1) {
+            for (int j = 0; j < size(); j += 1) {
+                result = 31 * result + board[i][j];
+            }
+        }
+        return result;
+    }
+
     /** Returns the string representation of the board. */
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -160,7 +172,7 @@ public class Board implements WorldState {
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }
